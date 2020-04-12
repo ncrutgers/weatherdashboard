@@ -5,7 +5,7 @@ $("#submit").on("click", function(){
     var city = $("#search").val();
     console.log(city);
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=20da204ebb253be898910df1ae2d3dd6";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=20da204ebb253be898910df1ae2d3dd6";
     console.log (queryURL);
 
     $.ajax({   
