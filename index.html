@@ -3,8 +3,71 @@
     <head>
         <meta charset="utf-8">
         <title>Weather Dashboard</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+        <!--text header nav-->
+        <nav id="text-align" class="navbar">
+            <h1 class="navbar-text">
+              Weather Dashboard
+            </h1>
+          </nav>
+        <!--App container-->  
+        <div class="container jumbotron">           
+            <div class="row">
+                <!--Left column-->
+                <div class="col-3 justify-content-center">                    
+                    <div class="row mt-5 mb-5 ml-1">
+                        <label for="search">Search for a City:</label>
+                        <input type="search" id="search">
+                        <button id="submit">Search</button>
+                    </div>
+                    <!--list previous city search items-->
+                    <div class="row ml-1 mb-5">                        
+                    <ul class="list-group li-width">
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                        <li class="list-group-item li-width"></li>
+                      </ul>                      
+                    </div>
+                </div>
+                <!--Right column-->
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!--Current city search weather results-->
+                                <h5 class="card-header" id="city">Location</h5>
+                                <div class="card-body">                                  
+                                  <p class="card-text">Temperature: <span id="temp"></span></p>
+                                  <p class="card-text">Humidity: <span id="humidity"></span></p>
+                                  <p class="card-text">Wind Speed: <span id="wind-speed"></span></p>
+                                  <p class="card-text">UV index: <span id="uv-index"></span></p>                                  
+                                </div>
+                            </div>
+                        </div>           
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!--5 Day Forecast Results-->
+                                <h6 class="card-header">5-Day Forecast:</h6>
+                                <div class="card-body">                                  
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
     <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
