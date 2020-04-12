@@ -13,10 +13,12 @@ $("#submit").on("click", function(){
         method: "GET"
     }).then(function(response){
         console.log(response);
+        var temp = parseInt((response.main.temp - 273.15) * 1.80 +32);
+
         $("#city").text(city.charAt(0).toUpperCase() + city.slice(1)); 
-        $("#temp").text(response.main.temp); 
-        $("#humidity").text(response.main.humidity); 
-        $("#wind-speed").text(response.wind.speed);
+        $("#temp").text(temp + "° F"); 
+        $("#humidity").text(response.main.humidity + "%"); 
+        $("#wind-speed").text(response.wind.speed + " MPH");
        // $("#").val(response.);  
 
 
