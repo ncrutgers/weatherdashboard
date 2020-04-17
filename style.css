@@ -1,6 +1,9 @@
-#text-align {
-    justify-content: center;
+body {
     background-color: #563d7c;
+}
+
+#text-align {
+    justify-content: center;    
 }    
 
 .navbar-text {
@@ -9,9 +12,33 @@
 
 .col-3 {
     border: solid 1px lightgray;
+    min-width: 240px;
+    height: 500px;
 }
 .li-width {
     width: 200px;
 }
 
+#city {
+    background-color: white;
+}
+
+.card {
+    min-height: 250px;
+}
+
+#submit {
+    display: inline-block;
+}
+
+.forecast-card .card-body {
+    background-color: #c0a0f3;
+    color: white;
+    border-radius: 25px;    
+}
+
+.forecast-card .card {
+    border-radius: 25px;
+
+}
 

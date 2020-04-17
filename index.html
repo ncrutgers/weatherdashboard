@@ -8,65 +8,98 @@
     </head>
     <body>
         <!--text header nav-->
-        <nav id="text-align" class="navbar">
-            <h1 class="navbar-text">
-              Weather Dashboard
-            </h1>
-          </nav>
+      <nav id="text-align" class="navbar">
+          <h1 class="navbar-text">
+            Weather Dashboard
+          </h1>
+      </nav>
         <!--App container-->  
-        <div class="container jumbotron">           
-            <div class="row">
-                <!--Left column-->
-                <div class="col-3 justify-content-center">                    
-                    <div class="row mt-5 mb-5 ml-1">
-                        <label for="search">Search for a City:</label>
-                        <input type="search" id="search">
-                        <button id="submit">Search</button>
-                    </div>
-                    <!--list previous city search items-->
-                    <div class="row ml-1 mb-5">                        
-                    <ul class="list-group li-width">
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                        <li class="list-group-item li-width"></li>
-                      </ul>                      
-                    </div>
-                </div>
-                <!--Right column-->
-                <div class="col-9">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!--Current city search weather results-->
-                                <h5 class="card-header" id="city">Location</h5>
-                                <div class="card-body">                                  
-                                  <p class="card-text">Temperature: <span id="temp"></span></p>
-                                  <p class="card-text">Humidity: <span id="humidity"></span></p>
-                                  <p class="card-text">Wind Speed: <span id="wind-speed"></span></p>
-                                  <p class="card-text">UV index: <span id="uv-index"></span></p>                                  
-                                </div>
-                            </div>
-                        </div>           
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!--5 Day Forecast Results-->
-                                <h6 class="card-header">5-Day Forecast:</h6>
-                                <div class="card-body">                                  
-                                
-                                </div>
-                            </div>
+      <div class="container jumbotron">           
+        <div class="row">
+          <!--Left column-->
+          <div class="col-3">                    
+            <div class="row mt-5 mb-5 ml-1 bg-image">
+                <label for="search">Search for a City:</label>
+                <input type="search" id="search">
+                <button id="submit">Search</button>
+            </div>
+            <!--list previous city search items-->
+            <div class="row ml-1 mb-5"> 
+              <div id="buttons-view">                
+              </div> <!--Buttons will be added to this div-->                       
+              <ul class="list-group li-width">
+
+              </ul>                      
+            </div>
+          </div>
+          <!--Right column-->
+          <div class="col-9">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="card"">
+                          <!--Current city search weather results-->
+                          <h5 class="card-header" id="city">City Location</h5>
+                          <div class="card-body">                                  
+                            <p class="card-text">Temperature: <span id="temp"></span></p>                                  
+                            <p class="card-text">Humidity: <span id="humidity"></span></p>
+                            <p class="card-text">Wind Speed: <span id="wind-speed"></span></p>
+                            <p class="card-text">UV index: <span id="uv-index"></span></p>                                  
+                          </div>
+                      </div>
+                  </div>           
+              </div>
+              <div class="row">
+                  <div class="col-12">
+                      
+                    <!--5 Day Forecast Results-->
+                    <h6 class="pt-4 pb-3" id="forecast">5-Day Forecast:</h6>
+                    <div class="card-deck forecast-card">
+                        <div class="card mr-0">                               
+                          <div class="card-body">
+                            <h5 class="card-title"><span class="forecast-date">Date</span></h5>
+                            <img src="..." alt="icon" class="forecast-icon">
+                            <p class="card-text">Temp: <span class="forecast-temp"></span></p>
+                            <p class="card-text">Humidity: <span class="forecast-humidity"></span></p>                                    
+                          </div>
+                        </div>
+                        <div class="card mr-0" >                                        
+                          <div class="card-body">
+                            <h5 class="card-title"><span class="forecast-date">Date</span></h5>
+                            <img src="..." alt="icon" class="forecast-icon">
+                            <p class="card-text">Temp: <span class="forecast-temp"></span></p>
+                            <p class="card-text">Humidity: <span class="forecast-humidity"></span></p>                              
+                          </div>
+                        </div>
+                        <div class="card mr-0">                                        
+                          <div class="card-body">
+                            <h5 class="card-title"><span class="forecast-date">Date</span></h5>
+                            <img src="..." alt="icon" class="forecast-icon">
+                            <p class="card-text">Temp: <span class="forecast-temp"></span></p>
+                            <p class="card-text">Humidity: <span class="forecast-humidity"></span></p>                              
+                          </div>
+                        </div> 
+                        <div class="card mr-0">                                        
+                          <div class="card-body">
+                            <h5 class="card-title"><span class="forecast-date">Date</span></h5>
+                            <img src="..." alt="icon" class="forecast-icon">
+                            <p class="card-text">Temp: <span class="forecast-temp"></span></p>
+                            <p class="card-text">Humidity: <span class="forecast-humidity"></span></p>                              
+                          </div>
+                        </div>
+                        <div class="card">                                        
+                          <div class="card-body">
+                            <h5 class="card-title"><span class="forecast-date">Date</span></h5>
+                            <img src="..." alt="icon" class="forecast-icon">
+                            <p class="card-text">Temp: <span class="forecast-temp"></span></p>
+                            <p class="card-text">Humidity: <span class="forecast-humidity"></span></p>                              
+                          </div>
                         </div>
                     </div>  
-                </div>
-            </div>
+                  </div>
+              </div>  
+          </div>
         </div>
+      </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
     <script type="text/javascript" src="script.js"></script>
     </body>
