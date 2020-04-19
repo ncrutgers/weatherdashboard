@@ -83,9 +83,8 @@ function getForeCast(cityStr) {
         var forecastList = response.list; 
         console.log(forecastList);
         var j = 0;
-        for (var i = 7; i < forecastList.length; i+=8){
-            console.log(forecastList.length);
-            console.log(i);
+        for (var i = 7; i < forecastList.length; i+=8) {
+
             var fIcon = forecastList[i].weather[0].icon;
             var forecastImage = "https://openweathermap.org/img/wn/" + fIcon + "@2x.png";
             var tempF = parseInt((forecastList[i].main.temp - 273.15) * 1.80 +32);
@@ -97,14 +96,13 @@ function getForeCast(cityStr) {
             var forecastTemp = $(".forecast-temp");
             var forecastHumidity = $(".forecast-humidity");            
             
-            if (j < forecastDate.length){
+            if (j < forecastDate.length) {
 
-            forecastDate[j].textContent = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getFullYear());
-            console.log(forecastDate[j]);                                                                      
-            forecastIcon[j].src = forecastImage;
-            forecastTemp[j].textContent = tempF + "° F ";
-            forecastHumidity[j].textContent = humidity + " MPH";
-            j++;            
+                forecastDate[j].textContent = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getFullYear());                                                                                 
+                forecastIcon[j].src = forecastImage;
+                forecastTemp[j].textContent = tempF + "° F ";
+                forecastHumidity[j].textContent = humidity + " MPH";
+                j++;            
             
             }
         }
