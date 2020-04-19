@@ -3,93 +3,117 @@
 // https://openweathermap.org/img/wn/10d@2x.png    icon="10d" code
 // https://api.openweathermap.org/data/2.5/uvi?appid={appid}&lat={lat}&lon={lon}
 var date = new Date().toLocaleDateString();
-console.log(date);
 
 $("#submit").on("click", function(){
     var city = $("#search").val();
     console.log(city);
-
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=20da204ebb253be898910df1ae2d3dd6";        
-    //console.log (queryURL);
+    // api weather query by city
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=20da204ebb253be898910df1ae2d3dd6";
 
     $.ajax({   
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log(response);
-        var temp = parseInt((response.main.temp - 273.15) * 1.80 +32);
+        //console.log(response);
+
+        weatherResults = response;
+        // calculate farenheit
+        var temp = parseInt((weatherResults.main.temp - 273.15) * 1.80 +32);
+        
         var date = new Date().toLocaleDateString();
-        var icon = response.weather[0].icon;
-        
+        // weather icon code from openweather
+        var icon = weatherResults.weather[0].icon;
+        // icon png url
         var iconImage = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-        //console.log(icon);
-        var imageElement = $("<img>");
-        imageElement.attr("src", iconImage);
-            
-        
-        $("#city").text(response.name + " (" + date + ")");
-        //console.log(date); 
+        // create image element & attribute
+        var imageIconEl = $("<img>");
+        imageIconEl.attr("src", iconImage);
+        // write key values to html element
+        $("#city").text(weatherResults.name + " (" + date + ")");        
         $("#temp").text(temp + "° F ");
-        $("#city").append(imageElement); 
-        $("#humidity").text(response.main.humidity + "%"); 
-        $("#wind-speed").text(response.wind.speed + " MPH");
+        $("#city").append(imageIconEl);
+        $("#humidity").text(weatherResults.main.humidity + "%");
+        $("#wind-speed").text(weatherResults.wind.speed + " MPH");
         
-       // $("#").val(response.);  
+        var latitude = weatherResults.coord.lat;
+        var longitude = weatherResults.coord.lon;
 
-       var lat = response.coord.lat;
-       var lon = response.coord.lon;
-       var uvURL = "https://api.openweathermap.org/data/2.5/uvi?appid=20da204ebb253be898910df1ae2d3dd6&lat=" + lat + "&lon=" + lon;
-       //console.log(uvURL);
+        getUVIndex(latitude, longitude);
+        getForeCast(city);
+
+    });
+}); 
+
+function getUVIndex(lat, lon) {
+
+    // api uv query by latitude & longitude
+    var uvURL = "https://api.openweathermap.org/data/2.5/uvi?appid=20da204ebb253be898910df1ae2d3dd6&lat=" + lat + "&lon=" + lon;
             
+    $.ajax({   
+        url: uvURL,
+        method: "GET"
+    }).then(function(response){
+        //console.log(response);
+        var uvValue = response.value;
+        $("#uv-index").text(uvValue);  
+
+        if (uvValue <= 2) {
+            $("#uv-index").css({"background-color": "green"});
+        } else if (uvValue <= 5) {
+            $("#uv-index").css("background-color", "yellow");
+        } else if (uvValue <= 7) {
+            $("#uv-index").css("background-color", "orange");
+        } else if (uvValue <= 10) {
+            $("#uv-index").css("background-color", "red"); 
+        } else {
+            $("#uv-index").css("background-color", "violet");
+        }                     
+    });
+}
+ 
+function getForeCast(cityStr) {        
+    // forecast query url by city
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityStr + "&appid=20da204ebb253be898910df1ae2d3dd6";    
+
+    $.ajax({   
+        url: forecastURL,
+        method: "GET"
+    }).then(function(response){
+        //console.log(response);
+        var forecastList = response.list; 
+        console.log(forecastList);
+        var j = 0;
+        for (var i = 7; i < forecastList.length; i+=8){
+            console.log(forecastList.length);
+            console.log(i);
+            var fIcon = forecastList[i].weather[0].icon;
+            var forecastImage = "https://openweathermap.org/img/wn/" + fIcon + "@2x.png";
+            var tempF = parseInt((forecastList[i].main.temp - 273.15) * 1.80 +32);
+            var date = new Date(forecastList[i].dt_txt);
+            var humidity = forecastList[i].main.humidity;
+
+            var forecastDate = $(".forecast-date");
+            var forecastIcon = $(".forecast-icon");
+            var forecastTemp = $(".forecast-temp");
+            var forecastHumidity = $(".forecast-humidity");            
+            
+            if (j < forecastDate.length){
+
+            forecastDate[j].textContent = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getFullYear());
+            console.log(forecastDate[j]);                                                                      
+            forecastIcon[j].src = forecastImage;
+            forecastTemp[j].textContent = tempF + "° F ";
+            forecastHumidity[j].textContent = humidity + " MPH";
+            j++;            
+            
+            }
+        }
+    });
+}    
        
-        $.ajax({   
-            url: uvURL,
-            method: "GET"
-        }).then(function(response){
-            console.log(response);
-            uvValue = response.value;
-            $("#uv-index").text(uvValue);      
-            
-        });// end of uv index jquery ajax function
-
-            //=====================================================
-
-        // http://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={your api key}
-        
-        var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=20da204ebb253be898910df1ae2d3dd6";
-        
-        //console.log(forecastURL);
-             
-        
-         $.ajax({   
-             url: forecastURL,
-             method: "GET"
-         }).then(function(response){
-             console.log(response);
-             var forecastArray = response.list.slice(1, 6); 
-             console.log(forecastArray);
-
-             var forecastDate = $(".forecast-date");
-             var forecastIcon = $(".forecast-icon");
-             var forecastTemp = $(".forecast-temp");
-             var forecastHumidity = $(".forecast-humidity");
-            
-             for (var i = 0; i < forecastArray.length; i++){
-                var fIcon = forecastArray[0].weather[0].icon;
-                var forecastImage = "https://openweathermap.org/img/wn/" + fIcon + "@2x.png";
-                var tempF = parseInt((forecastArray[i].main.temp - 273.15) * 1.80 +32);
-                var date = new Date(forecastArray[i].dt_txt);
-                console.log(date);
-                forecastDate[i].textContent = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getFullYear());                                                                      
-                forecastIcon[i].src = forecastImage;
-                forecastTemp[i].textContent = tempF + "° F ";
-                forecastHumidity[i].textContent = forecastArray[i].main.humidity + " MPH";
-             }                   
-             
-         });// end of forecast jquery ajax function   
       
        
-    }); // end of weather jquery ajax function
+    
 
-}); // end of event listener
+
 
