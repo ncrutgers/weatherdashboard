@@ -42,6 +42,7 @@ $("#submit").on("click", function(){
 
         getUVIndex(latitude, longitude);
         getForeCast(city);
+        generateWeatherButtons(weatherResults.name);
 
     });
 }); 
@@ -116,9 +117,17 @@ function getForeCast(cityStr) {
     });
 }
 
-function generateWeatherButtons() {
+function generateWeatherButtons(cityStr) {
 
     //localStorage.setItem("weatherResults", JSON.stringify(weatherResults));
+     btnDiv = $("<div>");
+     inputBtn = $("<input>");
+     inputBtn.attr({type: "submit", value: ""});
+     inputBtn.css("width","130px");
+     inputBtn.val(cityStr); 
+     inputBtn.addClass("text-left")  
+     btnDiv.append(inputBtn);
+     $("#buttons-view").append(btnDiv);
     //localStorage.setItem("uvValue", uvValue);
 
     //localStorage.setItem("forecastList", JSON.stringify(forecastList));

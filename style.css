@@ -16,9 +16,6 @@ body {
     min-width: 240px;
     height: 500px;
 }
-.li-width {
-    width: 200px;
-}
 
 #city {
     background-color: white;
@@ -47,4 +44,6 @@ body {
     padding-right: 5px;
     padding-left: 5px;
 }
+
+
 
