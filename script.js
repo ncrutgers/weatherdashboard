@@ -1,18 +1,24 @@
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
-// 20da204ebb253be898910df1ae2d3dd6
-// https://openweathermap.org/img/wn/10d@2x.png    icon="10d" code
-// https://api.openweathermap.org/data/2.5/uvi?appid={appid}&lat={lat}&lon={lon}
 var date = new Date().toLocaleDateString();
 
+var lastWeather = JSON.parse(localStorage.getItem("weatherResults"));
+// returns last weather
+if (lastWeather){
+    getCurrentWeather(lastWeather.name);    
+    getForeCast(lastWeather.name);
+}
+// takes text input city value; retrieves current weather & forecast, and creates search history buttons
 $("#submit").on("click", function(){
-
+    
     var city = $("#search").val();
+    if ($.trim(city) == "") {
+        return;
+    }
     getCurrentWeather(city);
     generateWeatherButton(city);
     getForeCast(city);
 
-});    
-
+});
+// retrieves current weather when city is provided
 function getCurrentWeather(cityInput){
 
     // api weather query by city
@@ -23,7 +29,7 @@ function getCurrentWeather(cityInput){
         method: "GET"
     }).then(function(response){     
 
-        var weatherResults = response;
+        weatherResults = response;
         localStorage.setItem("weatherResults", JSON.stringify(weatherResults));
         console.log(typeof localStorage.getItem("weatherResults"));
     
@@ -47,11 +53,11 @@ function getCurrentWeather(cityInput){
         var latitude = weatherResults.coord.lat;
         var longitude = weatherResults.coord.lon;
 
-        getUVIndex(latitude, longitude);       
+        getUVIndex(latitude, longitude);
 
     });
 }
-
+// retrieves uv index when latitutde and longitude parameters are passed
 function getUVIndex(lat, lon) {
 
     // api uv query by latitude & longitude
@@ -80,7 +86,7 @@ function getUVIndex(lat, lon) {
         }                     
     });
 }
- 
+// retrieves 5 day forecast based on city search 
 function getForeCast(cityStr) {        
     // forecast query url by city
     var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityStr + "&appid=20da204ebb253be898910df1ae2d3dd6";    
