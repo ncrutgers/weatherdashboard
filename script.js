@@ -5,18 +5,25 @@
 var date = new Date().toLocaleDateString();
 
 $("#submit").on("click", function(){
+
     var city = $("#search").val();
-    console.log(city);
+    getCurrentWeather(city);
+    generateWeatherButton(city);
+    getForeCast(city);
+
+});    
+
+function getCurrentWeather(cityInput){
+
     // api weather query by city
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=20da204ebb253be898910df1ae2d3dd6";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=20da204ebb253be898910df1ae2d3dd6";
 
     $.ajax({   
         url: queryURL,
         method: "GET"
-    }).then(function(response){
-        //console.log(response);
+    }).then(function(response){     
 
-        weatherResults = response;
+        var weatherResults = response;
         localStorage.setItem("weatherResults", JSON.stringify(weatherResults));
         console.log(typeof localStorage.getItem("weatherResults"));
     
@@ -40,12 +47,10 @@ $("#submit").on("click", function(){
         var latitude = weatherResults.coord.lat;
         var longitude = weatherResults.coord.lon;
 
-        getUVIndex(latitude, longitude);
-        getForeCast(city);
-        generateWeatherButtons(weatherResults.name);
+        getUVIndex(latitude, longitude);       
 
     });
-}); 
+}
 
 function getUVIndex(lat, lon) {
 
@@ -110,31 +115,36 @@ function getForeCast(cityStr) {
                 forecastIcon[j].src = forecastImage;
                 forecastTemp[j].textContent = tempF + "° F ";
                 forecastHumidity[j].textContent = humidity + " MPH";
-                j++;            
+                j++;      
             
             }
         }
     });
 }
+// button added to buttons-view element
+function generateWeatherButton(cityStr) {
 
-function generateWeatherButtons(cityStr) {
-
-    //localStorage.setItem("weatherResults", JSON.stringify(weatherResults));
      btnDiv = $("<div>");
      inputBtn = $("<input>");
-     inputBtn.attr({type: "submit", value: ""});
-     inputBtn.css("width","130px");
-     inputBtn.val(cityStr); 
-     inputBtn.addClass("text-left")  
+     inputBtn.attr("type", "submit");
+     inputBtn.addClass("weather text-left");
+     inputBtn.attr("data-name", cityStr);     
+     inputBtn.css("width", "130px");
+     inputBtn.val(cityStr);
      btnDiv.append(inputBtn);
      $("#buttons-view").append(btnDiv);
-    //localStorage.setItem("uvValue", uvValue);
-
-    //localStorage.setItem("forecastList", JSON.stringify(forecastList));
 
 }
-
-       
+// displays weather of selected button 
+function displayWeatherButtonInfo(){
+    var cityName = $(this).attr("data-name");
+    console.log(cityName);
+    getCurrentWeather(cityName);
+    getForeCast(cityName);
+}
+// event listener added to class element; when click call function
+$(document).on("click", ".weather", displayWeatherButtonInfo);
+      
       
        
     
