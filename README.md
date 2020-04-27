@@ -27,6 +27,8 @@ GIVEN a weather dashboard with form inputs
     THEN I am again presented with current and future conditions for that city
 * WHEN I open the weather dashboard
     THEN I am presented with the last searched city forecast or last selected search history
+    
+Deployed Site: https://ncrutgers.github.io/weatherdashboard
 
 
 
